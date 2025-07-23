@@ -16,6 +16,6 @@ public class DBConnection {
     public static Connection getConnection()throws SQLException,ClassNotFoundException
     {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql:///librarymgmt","root","root");
+        return DriverManager.getConnection("jdbc:mysql:///librarymgmt?useSSL=false&serverTimezone=UTC","root","root");
     }
 }

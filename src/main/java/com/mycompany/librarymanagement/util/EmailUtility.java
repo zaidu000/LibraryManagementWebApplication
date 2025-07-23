@@ -4,42 +4,43 @@ import java.util.Properties;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
 
+import jakarta.mail.Authenticator;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
+import java.util.Properties;
 public class EmailUtility {
-
-    public static void sendMembershipEmail(String toEmail, String membershipNumber, String password, String role) {
-        final String fromEmail = "your_email@gmail.com"; // Replace with your email
-        final String emailPassword = "your_app_password"; // Replace with app-specific password
-
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-
-        Session session = Session.getInstance(props, new Authenticator() {
+    public static void sendEmail(String to, String subject, String content) throws MessagingException {
+        final String from = "zaidarif805@gmail.com";
+        final String password = "whciqqciskdyhbwx";
+        Properties prop = new Properties();
+        prop.put("mail.smtp.host", "smtp.gmail.com");
+        prop.put("mail.smtp.port", "587");
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.starttls.enable", "true");
+        Session session = Session.getInstance(prop, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(fromEmail, emailPassword);
+                return new PasswordAuthentication(from, password);
             }
         });
-
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(fromEmail, "Library Management System"));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
-            message.setSubject("Your Library Membership Details");
-
-            String content = "<h3>Welcome to Library Management System</h3>"
-                    + "<p><strong>Role:</strong> " + role + "</p>"
-                    + "<p><strong>Membership Number:</strong> " + membershipNumber + "</p>"
-                    + "<p><strong>Password:</strong> " + password + "</p>"
-                    + "<p>You can now log in using these credentials.</p>";
-
-            message.setContent(content, "text/html; charset=utf-8");
-            Transport.send(message);
-
-            System.out.println("Email sent successfully to " + toEmail);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(from));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+        message.setSubject(subject);
+        message.setText(content);
+        Transport.send(message);
     }
 }
+
+
+
+
+
+
+
+
+

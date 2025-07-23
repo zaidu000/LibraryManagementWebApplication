@@ -1,0 +1,11 @@
+com\mycompany\librarymanagement\controller\Register.class
+com\mycompany\librarymanagement\JakartaRestConfiguration.class
+com\mycompany\librarymanagement\util\EmailUtility.class
+com\mycompany\librarymanagement\controller\Logout.class
+com\mycompany\librarymanagement\util\DBConnection.class
+com\mycompany\librarymanagement\util\PasswordHash.class
+com\mycompany\librarymanagement\model\Student.class
+com\mycompany\librarymanagement\util\EmailUtility$1.class
+com\mycompany\librarymanagement\controller\Login.class
+com\mycompany\librarymanagement\resources\JakartaEE8Resource.class
+com\mycompany\librarymanagement\model\Admin.class
