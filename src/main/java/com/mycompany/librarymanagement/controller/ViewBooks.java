@@ -27,6 +27,7 @@ public class ViewBooks extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Book book=null;
         List<Book> books = new ArrayList<>();
         try(Connection con = DBConnection.getConnection())
         {
@@ -34,20 +35,21 @@ public class ViewBooks extends HttpServlet {
             ResultSet rs = st.executeQuery("select * from books");
             while(rs.next())
             {
-                Book book = new Book();
+                book = new Book();
                 book.setId(rs.getInt("id"));
                 book.setAuthor(rs.getString("author"));
                 book.setEdition(rs.getString("edition"));
                 book.setName(rs.getString("name"));
-                book.setQuantity(rs.getString("quantity"));
+                book.setQuantity(rs.getInt("quantity"));
                 book.setParking_slot(rs.getString("parking_slot"));
+                books.add(book);
             }
             request.setAttribute("books",books);
-            request.getRequestDispatcher("ViewBooks.jsp").forward(request,response);
+            request.getRequestDispatcher("viewBooks.jsp").forward(request,response);
            
         }catch(Exception e){
-            PrintWriter out = response.getWriter();
-            out.println(e);
+             request.setAttribute("error", "Error: "+e.getMessage());
+            request.getRequestDispatcher("adminDashboard.jsp").forward(request, response);
         }
     }
 

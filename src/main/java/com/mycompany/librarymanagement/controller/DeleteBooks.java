@@ -23,18 +23,17 @@ public class DeleteBooks extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
-        int id = Integer.parseInt(request.getParameter("id"));
-        try(Connection con = DBConnection.getConnection())
-        {
-            PreparedStatement ps = con.prepareStatement("delete from books where id = ? ");
-            ps.setInt(1,id);
-            ps.executeUpdate();
-        }catch(Exception e){
-            PrintWriter out = response.getWriter();
-            out.println(e);
-        }
 
+        int id = Integer.parseInt(request.getParameter("id"));
+        try (Connection con = DBConnection.getConnection()) {
+            PreparedStatement ps = con.prepareStatement("delete from books where id = ? ");
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            response.sendRedirect("ViewBooks");
+        } catch (Exception e) {
+            request.setAttribute("error", "Error: " + e.getMessage());
+            request.getRequestDispatcher("adminDashboard.jsp").forward(request, response);
+        }
 
     }
 }

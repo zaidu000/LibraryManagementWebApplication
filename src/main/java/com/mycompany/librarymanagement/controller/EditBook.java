@@ -38,7 +38,7 @@ public class EditBook extends HttpServlet {
             ps.setString(5,parking_slot);
             ps.setInt(6,id);
             ps.executeUpdate();
-            response.sendRedirect("ViewBooks.jsp");
+            response.sendRedirect("ViewBooks");
         }catch(Exception e){
             PrintWriter out = response.getWriter();
             out.println(e);

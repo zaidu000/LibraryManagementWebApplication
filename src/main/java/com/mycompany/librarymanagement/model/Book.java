@@ -13,7 +13,7 @@ public class Book {
     String name;
     String author;
     String edition;
-    String quantity;
+    int quantity;
     String parking_slot;    
 
     public int getId() {
@@ -48,11 +48,11 @@ public class Book {
         this.edition = edition;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

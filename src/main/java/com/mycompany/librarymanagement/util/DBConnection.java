@@ -18,4 +18,8 @@ public class DBConnection {
         Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection("jdbc:mysql:///librarymgmt?useSSL=false&serverTimezone=UTC","root","root");
     }
+
+    public static Connection getConnecton() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

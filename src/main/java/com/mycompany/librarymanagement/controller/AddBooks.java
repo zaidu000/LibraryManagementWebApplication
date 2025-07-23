@@ -31,14 +31,16 @@ public class AddBooks extends HttpServlet {
         
         try(Connection con = DBConnection.getConnection())
         {
-            PreparedStatement ps = con.prepareStatement("insert into books(name,author,edition,quantity,parking_slot)");
+            //PreparedStatement ps = con.prepareStatement("insert into books(name,author,edition,quantity,parking_slot)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO books(name, author, edition, quantity, parking_slot) VALUES (?, ?, ?, ?, ?)");
+
             ps.setString(1,name);
             ps.setString(2,author);
             ps.setString(3,edition);
             ps.setInt(4,quantity);
             ps.setString(5,parking_slot);
             ps.executeUpdate();
-            response.sendRedirect("ViewBooks.jsp");
+            response.sendRedirect("addBook.jsp");
         }catch(Exception e){
             PrintWriter out = response.getWriter();
             out.println(e);

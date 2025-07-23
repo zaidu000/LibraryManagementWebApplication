@@ -20,31 +20,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ViewIssuedBooks extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Map<String,String>> issuedBooks = new ArrayList<>();
-        try(Connection con = DBConnection.getConnection())
-        {
-            String query = "select b.name as BookName,s.name as StudentName, ib.issue_date as IssueDate from issued_book JOIN book ib.book_id = b.id JOIN student ib.membershipNo = s.membershipNo";
+        List<Map<String, String>> issuedBooks = new ArrayList<>();
+        try (Connection con = DBConnection.getConnection()) {
+            String query = "SELECT b.name AS bookName, s.name AS studentName, ib.issue_date AS issueDate FROM issued_books ib JOIN books b ON ib.book_id = b.id JOIN students s ON ib.membership_number = s.membership_number";
+
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            while(rs.next()){
-            
-                Map<String,String> record = new HashMap<>();
-                record.put("bookName",rs.getString("name"));
-                record.put("studentName",rs.getString("studentName"));
-                record.put("issueDate",rs.getString("issueDate"));
+            while (rs.next()) {
+
+                Map<String, String> record = new HashMap<>();
+                record.put("bookName", rs.getString("bookName"));
+                record.put("studentName", rs.getString("studentName"));
+                record.put("issueDate", rs.getString("issueDate"));
+
                 issuedBooks.add(record);
             }
             request.setAttribute("issuedBooks", issuedBooks);
             request.getRequestDispatcher("viewIssuedBook.jsp").forward(request, response);
-                
-        }catch(Exception e)
-        {
+
+        } catch (Exception e) {
             PrintWriter out = response.getWriter();
             out.println(e);
         }
-        
+
     }
 }
